@@ -1,0 +1,25 @@
+engine:
+  tick_hz: 30
+
+esp:
+  enabled: false
+  max_distance: 300.0
+  show_npcs: false
+
+aimbot:
+  enabled: false
+  fov: 15.0
+  smooth: 0.35
+  bone: head
+
+speed:
+  enabled: false
+  multiplier: 1.75
+
+teleport:
+  enabled: false
+
+overlay:
+  width: 1920
+  height: 1080
+  hotkey_toggle: F8
