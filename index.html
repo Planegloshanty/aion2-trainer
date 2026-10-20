@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AION 2 Trainer — Aimbot, ESP &amp; Speed Hack for Windows</title>
+<meta name="description" content="AION 2 Trainer: aimbot, ESP/wallhack, speed hack, teleport, inventory editor and anti-cheat bypass for AION 2 with a DLL injector and hotkey GUI.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-0: #070a16;
+    --bg-1: #0b1024;
+    --bg-2: #141a3a;
+    --indigo: #6366f1;
+    --violet: #8b5cf6;
+    --cyan: #22d3ee;
+    --text: #e7e9f5;
+    --muted: #9aa2c4;
+    --card: rgba(255, 255, 255, 0.035);
+    --card-border: rgba(255, 255, 255, 0.09);
+    --radius: 16px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Segoe UI", Inter, system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg-0);
+    background-image:
+      radial-gradient(1100px 620px at 12% -8%, rgba(99, 102, 241, 0.30), transparent 62%),
+      radial-gradient(900px 560px at 92% 4%, rgba(34, 211, 238, 0.14), transparent 60%),
+      radial-gradient(1000px 700px at 50% 108%, rgba(139, 92, 246, 0.20), transparent 65%),
+      linear-gradient(165deg, #070a16 0%, #0b1024 42%, #10142c 72%, #070a16 100%);
+    background-attachment: fixed;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 22px;
+  }
+
+  /* ---------------- NAV ---------------- */
+  .nav-shell {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 14px 0;
+    background: rgba(7, 10, 22, 0.55);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.06rem;
+    letter-spacing: 0.4px;
+    text-decoration: none;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    font-size: 0.95rem;
+    background: linear-gradient(135deg, var(--indigo), var(--violet) 55%, var(--cyan));
+    box-shadow: 0 0 22px rgba(99, 102, 241, 0.55);
+  }
+
+  .brand span.accent {
+    background: linear-gradient(90deg, #a5b4fc, #22d3ee);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover { color: #ffffff; }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 11px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--indigo), var(--violet));
+    box-shadow: 0 8px 24px -8px rgba(99, 102, 241, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -8px rgba(139, 92, 246, 0.95);
+  }
+
+  /* ---------------- HERO ---------------- */
+  .hero {
+    padding: 84px 0 64px;
+    text-align: center;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #c7d2fe;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(129, 140, 248, 0.35);
+    box-shadow: inset 0 0 18px rgba(99, 102, 241, 0.18);
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 10px #34d399;
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.82); }
+  }
+
+  h1 {
+    margin: 26px auto 20px;
+    max-width: 900px;
+    font-size: clamp(2.1rem, 5.6vw, 4rem);
+    line-height: 1.08;
+    font-weight: 900;
+    letter-spacing: -1.4px;
+    background: linear-gradient(100deg, #ffffff 0%, #c7d2fe 38%, #818cf8 62%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero p.lead {
+    max-width: 690px;
+    margin: 0 auto;
+    color: var(--muted);
+    font-size: clamp(0.98rem, 2vw, 1.1rem);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 32px;
+    border-radius: 13px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    color: #ffffff;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 55%, #a855f7 100%);
+    box-shadow: 0 18px 40px -14px rgba(139, 92, 246, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 26px 52px -16px rgba(139, 92, 246, 1), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  }
+
+  .btn-ghost {
+    color: #dbe1ff;
+    background: rgba(255, 255, 255, 0.045);
+    border-color: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(8px);
+  }
+
+  .btn-ghost:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 44px;
+  }
+
+  .stat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #cdd4f0;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(10px);
+  }
+
+  .stat-chip b { color: #ffffff; font-weight: 800; }
+
+  /* ---------------- SECTIONS ---------------- */
+  section { padding: 74px 0; }
+
+  .section-head {
+    text-align: center;
+    max-width: 660px;
+    margin: 0 auto 48px;
+  }
+
+  .eyebrow {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: #818cf8;
+  }
+
+  h2 {
+    margin: 12px 0 12px;
+    font-size: clamp(1.6rem, 3.6vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.7px;
+    color: #ffffff;
+  }
+
+  .section-head p { color: var(--muted); font-size: 0.98rem; }
+
+  /* ---------------- FEATURES ---------------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    position: relative;
+    padding: 30px 26px 28px;
+    border-radius: var(--radius);
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-top: 3px solid transparent;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(420px 160px at 50% -20%, rgba(99, 102, 241, 0.18), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    pointer-events: none;
+  }
+
+  .card:nth-child(1) { border-top-color: #6366f1; }
+  .card:nth-child(2) { border-top-color: #8b5cf6; }
+  .card:nth-child(3) { border-top-color: #22d3ee; }
+  .card:nth-child(4) { border-top-color: #a855f7; }
+  .card:nth-child(5) { border-top-color: #38bdf8; }
+  .card:nth-child(6) { border-top-color: #818cf8; }
+
+  .card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(139, 92, 246, 0.42);
+    box-shadow: 0 26px 50px -22px rgba(99, 102, 241, 0.85);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 18px;
+    font-size: 1.55rem;
+    border-radius: 13px;
+    background: rgba(99, 102, 241, 0.13);
+    border: 1px solid rgba(129, 140, 248, 0.26);
+    box-shadow: inset 0 0 22px rgba(99, 102, 241, 0.16);
+  }
+
+  .card h3 {
+    font-size: 1.06rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: #ffffff;
+    letter-spacing: -0.2px;
+  }
+
+  .card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.62;
+  }
+
+  /* ---------------- STEPS ---------------- */
+  .steps {
+    position: relative;
+    max-width: 780px;
+    margin: 0 auto;
+    padding-left: 8px;
+  }
+
+  .steps::before {
+    content: "";
+    position: absolute;
+    left: 30px;
+    top: 22px;
+    bottom: 22px;
+    width: 3px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 45%, #22d3ee 100%);
+    box-shadow: 0 0 18px rgba(139, 92, 246, 0.65);
+  }
+
+  .step {
+    position: relative;
+    display: flex;
+    gap: 24px;
+    padding: 20px 0 30px 0;
+  }
+
+  .step:last-child { padding-bottom: 0; }
+
+  .step-num {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 62px;
+    width: 62px;
+    height: 62px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #ffffff;
+    background: linear-gradient(135deg, #1b2148, #2a1f5c);
+    border: 2px solid rgba(139, 92, 246, 0.55);
+    box-shadow: 0 0 0 6px rgba(7, 10, 22, 0.9), 0 0 26px rgba(99, 102, 241, 0.55);
+  }
+
+  .step-body {
+    padding-top: 6px;
+  }
+
+  .step-body h3 {
+    font-size: 1.06rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+
+  .step-body p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    max-width: 560px;
+  }
+
+  .step-body code {
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 0.84rem;
+    color: #a5b4fc;
+    background: rgba(99, 102, 241, 0.14);
+    border: 1px solid rgba(129, 140, 248, 0.24);
+    padding: 2px 7px;
+    border-radius: 6px;
+  }
+
+  /* ---------------- FAQ ---------------- */
+  .faq {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    gap: 14px;
+  }
+
+  details {
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    overflow: hidden;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+
+  details[open] {
+    border-color: rgba(139, 92, 246, 0.45);
+    background: rgba(99, 102, 241, 0.07);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 20px 22px;
+    cursor: pointer;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #eef1ff;
+    list-style: none;
+    user-select: none;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+
+  .plus {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #a5b4fc;
+    border-radius: 8px;
+    background: rgba(99, 102, 241, 0.16);
+    border: 1px solid rgba(129, 140, 248, 0.28);
+    transition: transform 0.28s ease, color 0.28s ease, background 0.28s ease;
+  }
+
+  details[open] .plus {
+    transform: rotate(45deg);
+    color: #22d3ee;
+    background: rgba(34, 211, 238, 0.14);
+    border-color: rgba(34, 211, 238, 0.4);
+  }
+
+  .faq-answer {
+    padding: 0 22px 22px;
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.66;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding-top: 16px;
+    margin-top: 0;
+  }
+
+  .faq-answer code {
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 0.84rem;
+    color: #a5b4fc;
+  }
+
+  /* ---------------- CTA BANNER ---------------- */
+  .cta-banner {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 66px 30px;
+    border-radius: 24px;
+    background:
+      radial-gradient(620px 320px at 50% 0%, rgba(139, 92, 246, 0.42), transparent 70%),
+      radial-gradient(500px 300px at 15% 100%, rgba(34, 211, 238, 0.18), transparent 70%),
+      linear-gradient(160deg, #141a3a 0%, #0d1128 100%);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    box-shadow: 0 40px 80px -40px rgba(99, 102, 241, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .cta-banner h2 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 14px;
+  }
+
+  .cta-banner p {
+    max-width: 540px;
+    margin: 0 auto 30px;
+    color: var(--muted);
+    font-size: 0.98rem;
+  }
+
+  /* ---------------- FOOTER ---------------- */
+  footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 34px 0;
+    margin-top: 40px;
+    background: rgba(7, 10, 22, 0.5);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 0.86rem;
+    color: var(--muted);
+  }
+
+  .footer-inner a {
+    color: #a5b4fc;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .footer-inner a:hover { color: #22d3ee; }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  /* ---------------- RESPONSIVE ---------------- */
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav { gap: 10px; }
+    .nav-cta { padding: 9px 15px; font-size: 0.82rem; }
+    .brand { font-size: 0.95rem; }
+    .brand-mark { width: 28px; height: 28px; font-size: 0.82rem; }
+
+    .hero { padding: 56px 0 44px; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .btn { width: 100%; padding: 14px 22px; }
+    .stats { gap: 9px; }
+    .stat-chip { padding: 8px 14px; font-size: 0.79rem; }
+
+    .grid { grid-template-columns: 1fr; }
+    section { padding: 54px 0; }
+    .section-head { margin-bottom: 34px; }
+
+    .steps::before { left: 24px; }
+    .step { gap: 16px; }
+    .step-num { flex: 0 0 50px; width: 50px; height: 50px; font-size: 0.98rem; }
+    .step-body { padding-top: 2px; }
+
+    .cta-banner { padding: 46px 20px; border-radius: 18px; }
+    .footer-inner { flex-direction: column; text-align: center; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <div class="nav-shell">
+    <div class="wrap">
+      <nav class="nav">
+        <a class="brand" href="#top">
+          <span class="brand-mark">⚔</span>
+          <span>AION 2 <span class="accent">Trainer</span></span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <a class="nav-cta" href="https://gitscore.cc" target="_blank" rel="noopener">⬇ Download</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="wrap">
+        <span class="pill"><span class="dot"></span> AION 2 Trainer · Windows Build</span>
+        <h1>AION 2 Trainer — Aimbot, ESP &amp; Speed Hack for Windows</h1>
+        <p class="lead">
+          A complete external toolkit for AION 2: pixel-perfect aimbot, ESP/wallhack with
+          player and mob overlays, speed hack, instant teleport, inventory editor and a
+          built-in anti-cheat bypass — all loaded through a single DLL injector with an
+          in-game hotkey GUI.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://gitscore.cc" target="_blank" rel="noopener">⬇ Download AION 2 Trainer</a>
+          <a class="btn btn-ghost" href="https://gitscore.cc" target="_blank" rel="noopener">★ View on GitHub</a>
+        </div>
+        <div class="stats">
+          <span class="stat-chip">⬇ <b>48,300+</b> downloads</span>
+          <span class="stat-chip">🏷 Version <b>v3.4.1</b></span>
+          <span class="stat-chip">🪟 <b>Windows 10 / 11</b></span>
+          <span class="stat-chip">🔓 <b>Free &amp; open source</b></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= FEATURES ================= -->
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Feature set</span>
+          <h2>Everything you need to dominate AION 2</h2>
+          <p>Six tightly integrated modules, hot-swappable at runtime from a single overlay menu — no restarts, no re-injection.</p>
