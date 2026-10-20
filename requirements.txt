@@ -1,0 +1,9 @@
+# aion2-trainer runtime dependencies
+pywin32>=306
+pymem>=1.13.0
+keyboard>=0.13.5
+pygame>=2.5.2
+Pillow>=10.2.0
+psutil>=5.9.8
+colorama>=0.4.6
+requests>=2.31.0
