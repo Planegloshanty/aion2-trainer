@@ -1,0 +1,14 @@
+"""AION 2 client offsets — build 2.4.1 (2026-02-11)."""
+from __future__ import annotations
+
+BUILD = "aion2-2.4.1"
+
+PLAYER_BASE = 0x0C4A1F30
+PLAYER_POS = 0x2C
+PLAYER_HP = 0x18
+CAMERA_ANGLE = 0x0C4A2B10
+SPEED_MULT = 0x1A4
+
+ENTITY_LIST = 0x0C5B0000
+ENTITY_STRIDE = 0x48
+ENTITY_COUNT = 512
